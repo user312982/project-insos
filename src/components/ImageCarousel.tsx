@@ -45,7 +45,7 @@ export default function ImageCarousel({ className = '' }: ImageCarouselProps) {
   };
 
   return (
-    <div className={`relative h-[80vh] w-full overflow-hidden ${className}`}>
+    <div className={`relative h-[100vh] w-full overflow-hidden ${className}`}>
       {/* Main Image */}
       <div className="relative h-full w-full">
         {images.map((image, index) => (
