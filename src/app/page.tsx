@@ -1,6 +1,7 @@
 // app/page.tsx
 import Navbar from "@/components/Navbar";
 import ImageCarousel from "@/components/ImageCarousel";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -33,14 +34,90 @@ export default function Home() {
             <h2 className="text-3xl font-bold mb-8 text-center text-rt-dark">
               Struktur RT54
             </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-6">
               {/* Ketua RT */}
-              <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-                <div className="w-24 h-24 rounded-full bg-rt-medium mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-rt-dark">Nama Ketua RT</h3>
-                <p className="text-rt-medium">Ketua RT</p>
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden text-center">
+                {/* Foto */}
+                <div className="relative w-full h-48">
+                  <Image
+                    src="/struktur/ketua-rt.jpg"
+                    alt="Ketua RT"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+
+                {/* Konten */}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-rt-dark">Karyono</h3>
+                  <p className="text-rt-medium">Ketua RT</p>
+                </div>
               </div>
-              {/* Tambahkan kartu struktur lain di sini */}
+
+              {/* Tambahkan card struktur lain di sini */}
+            </div>
+          </div>
+        </section>
+
+
+        {/* Administrasi penduduk */}
+        <section className="py-16 bg-white" id="administrasi">
+          <div className="container mx-auto px-4">
+            <h2 className="text-4xl font-bold mb-4 text-center text-red-500">
+              Administrasi Penduduk
+            </h2>
+            <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+              Sistem digital yang berfungsi mempermudah pengelolaan data dan informasi terkait dengan kependudukan dan pendayagunaannya untuk pelayanan publik yang efektif dan efisien
+            </p>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {/* Total Penduduk */}
+              <div className="text-center">
+                <div className="bg-red-500 text-white text-5xl font-bold p-6 rounded-lg shadow-lg mb-3">
+                  1.149
+                </div>
+                <h3 className="text-xl font-semibold text-gray-700">Penduduk</h3>
+              </div>
+
+              {/* Laki-laki */}
+              <div className="text-center">
+                <div className="bg-red-500 text-white text-5xl font-bold p-6 rounded-lg shadow-lg mb-3">
+                  605
+                </div>
+                <h3 className="text-xl font-semibold text-gray-700">Laki-Laki</h3>
+              </div>
+
+              {/* Perempuan */}
+              <div className="text-center">
+                <div className="bg-red-500 text-white text-5xl font-bold p-6 rounded-lg shadow-lg mb-3">
+                  544
+                </div>
+                <h3 className="text-xl font-semibold text-gray-700">Perempuan</h3>
+              </div>
+
+              {/* Kepala Keluarga */}
+              <div className="text-center">
+                <div className="bg-red-500 text-white text-5xl font-bold p-6 rounded-lg shadow-lg mb-3">
+                  304
+                </div>
+                <h3 className="text-xl font-semibold text-gray-700">Kepala Keluarga</h3>
+              </div>
+
+              {/* Penduduk Sementara */}
+              <div className="text-center">
+                <div className="bg-red-500 text-white text-5xl font-bold p-6 rounded-lg shadow-lg mb-3">
+                  79
+                </div>
+                <h3 className="text-xl font-semibold text-gray-700">Penduduk Sementara</h3>
+              </div>
+
+              {/* Mutasi Penduduk */}
+              <div className="text-center">
+                <div className="bg-red-500 text-white text-5xl font-bold p-6 rounded-lg shadow-lg mb-3">
+                  38
+                </div>
+                <h3 className="text-xl font-semibold text-gray-700">Mutasi Penduduk</h3>
+              </div>
             </div>
           </div>
         </section>
