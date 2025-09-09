@@ -1,11 +1,25 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navigation = [
     { 
@@ -42,7 +56,9 @@ export default function Navbar() {
 
   return (
     <div className="min-h-full">
-      <nav className="bg-[#556B2F]">
+      <nav className={`fixed w-full transition-all duration-300 z-50 ${
+        isScrolled ? 'bg-[#556B2F] shadow-lg' : 'bg-[#556B2F]/50 backdrop-blur-sm'
+      }`}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center">
@@ -194,11 +210,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-      <header className="bg-white shadow">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900">RT54</h1>
-        </div>
-      </header>
     </div>
   );
 }
