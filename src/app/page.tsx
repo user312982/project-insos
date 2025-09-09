@@ -1,10 +1,13 @@
 import Image from "next/image";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section className="bg-blue-600 text-white py-20">
+    <div className="min-h-screen bg-rt-lightest">
+      <Navbar />
+      <main>
+        {/* Hero Section */}
+      <section className="bg-rt-dark text-black py-20">
         <div className="container mx-auto px-4">
           <h1 className="text-5xl font-bold mb-4">Selamat Datang di RT54</h1>
           <p className="text-xl">Membangun Komunitas yang Harmonis dan Sejahtera</p>
@@ -14,9 +17,9 @@ export default function Home() {
       {/* Sejarah Section */}
       <section className="py-16" id="sejarah">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8 text-center">Sejarah RT54</h2>
+          <h2 className="text-3xl font-bold mb-8 text-center text-rt-dark">Sejarah RT54</h2>
           <div className="bg-white p-6 rounded-lg shadow-lg">
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-rt-dark leading-relaxed">
               RT54 telah berdiri sejak tahun [Tahun Berdiri] dan telah mengalami berbagai perkembangan signifikan.
               Bermula dari sebuah pemukiman kecil, kini telah berkembang menjadi kawasan yang modern dengan berbagai
               fasilitas lengkap untuk mendukung kesejahteraan warga.
@@ -26,15 +29,15 @@ export default function Home() {
       </section>
 
       {/* Struktur RT Section */}
-      <section className="py-16 bg-gray-100" id="struktur">
+      <section className="py-16 bg-rt-light" id="struktur">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8 text-center">Struktur RT54</h2>
+          <h2 className="text-3xl font-bold mb-8 text-center text-rt-dark">Struktur RT54</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Ketua RT */}
             <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-              <div className="w-24 h-24 rounded-full bg-gray-300 mx-auto mb-4"></div>
-              <h3 className="text-xl font-bold">Nama Ketua RT</h3>
-              <p className="text-gray-600">Ketua RT</p>
+              <div className="w-24 h-24 rounded-full bg-rt-medium mx-auto mb-4"></div>
+              <h3 className="text-xl font-bold text-rt-dark">Nama Ketua RT</h3>
+              <p className="text-rt-medium">Ketua RT</p>
             </div>
             {/* Add more structure components */}
           </div>
@@ -42,12 +45,12 @@ export default function Home() {
       </section>
 
       {/* Fasilitas Section */}
-      <section className="py-16" id="fasilitas">
+      <section className="py-16 bg-rt-lightest" id="fasilitas">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8 text-center">Fasilitas</h2>
+          <h2 className="text-3xl font-bold mb-8 text-center text-rt-dark">Fasilitas</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Posyandu */}
-            <div className="bg-white p-6 rounded-lg shadow-lg">
+            <div className="bg-white p-6 rounded-lg shadow-lg border-t-4 border-rt-medium">
               <h3 className="text-xl font-bold mb-4">Posyandu</h3>
               <p className="text-gray-700">Layanan kesehatan terpadu untuk ibu dan anak</p>
             </div>
@@ -112,7 +115,6 @@ export default function Home() {
                loading="lazy" 
                referrerPolicy="no-referrer-when-downgrade"
                ></iframe>}
-              <p className="text-center py-8">Peta akan ditampilkan di sini</p>
             </div>
           </div>
         </div>
@@ -148,5 +150,6 @@ export default function Home() {
         </div>
       </section>
     </main>
+    </div>
   );
 }

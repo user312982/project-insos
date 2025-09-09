@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RT54 - Website Resmi",
+  title: "RT5 - Website Resmi",
   description: "Website resmi RT54 - Informasi lengkap tentang sejarah, fasilitas, dan kegiatan masyarakat",
 };
 
@@ -24,13 +24,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <div className="pt-16">
-          {/* @ts-expect-error Async Server Component */}
-          <Navbar />
-          {children}
-        </div>
+    <html lang="en" className="h-full bg-gray-100">
+      <body className={`${geistSans.variable} ${geistMono.variable} h-full`}>
+        {children}
       </body>
     </html>
   );
