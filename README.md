@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Development
 
-## Getting Started
+1. Jalankan database lokal dengan Docker:
 
-First, run the development server:
+```bash
+docker compose up -d
+```
+
+2. Salin `.env.local.example` menjadi `.env.local` dan sesuaikan jika perlu.
+
+3. Jalankan aplikasi:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Buka halaman `/penduduk` untuk input data dan coba submit.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Adminer tersedia di `http://localhost:8080` (host: `db`, user: `app`, pass: `app_pass`, db: `db_insos`).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## API
 
-## Learn More
+- `POST /api/penduduk`
+  - Body JSON: `{ "nik": string, "nama": string, "nilai_angka": number }`
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy ke Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Vercel tidak meng-host database. Gunakan managed MySQL (mis. PlanetScale/AWS RDS/GCP Cloud SQL).
+- Set `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME` di Vercel Project Settings.
+- Driver yang digunakan adalah `mysql2` (TCP). Di lingkungan serverless, gunakan pooling atau pertimbangkan driver HTTP seperti `@planetscale/database` bila perlu.
