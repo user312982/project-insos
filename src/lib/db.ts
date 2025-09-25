@@ -1,45 +1,241 @@
-import mysql from 'mysql2/promise';
-
-// Konfigurasi database
-const dbConfig = {
-  host: process.env.DB_HOST || 'localhost',
-  port: parseInt(process.env.DB_PORT || '3306'),
-  user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || 'rootpass',
-  database: process.env.DB_NAME || 'db_insos',
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-};
-
-// Membuat connection pool
-const pool = mysql.createPool(dbConfig);
+import { supabase } from "./supabase";
 
 // Fungsi untuk test koneksi
 export async function testConnection(): Promise<boolean> {
   try {
-    const connection = await pool.getConnection();
-    console.log('✅ Koneksi ke database berhasil!');
-    connection.release();
+    const { data, error } = await supabase.from("warga").select("count");
+    if (error) throw error;
+    console.log("✅ Koneksi ke database berhasil!");
     return true;
   } catch (error) {
-    console.error('❌ Gagal koneksi ke database:', error);
+    console.error("❌ Gagal koneksi ke database:", error);
     return false;
   }
 }
 
-// Fungsi untuk mendapatkan informasi database
-export async function getDatabaseInfo(): Promise<any> {
-  try {
-    const connection = await pool.getConnection();
-    const [rows] = await connection.execute('SELECT VERSION() as version, DATABASE() as current_database');
-    connection.release();
-    return rows;
-  } catch (error) {
-    console.error('❌ Gagal mendapatkan informasi database:', error);
+// Interface untuk data warga
+export interface Citizen {
+  id?: number;
+  nama: string;
+  nik: string;
+  agama: string;
+  jenis_kelamin: string;
+  status_perkawinan: string;
+  created_at?: Date;
+  updated_at?: Date;
+}
+
+// Fungsi untuk menambah data warga
+export async function addCitizen(
+  data: Omit<Citizen, "id" | "created_at" | "updated_at">
+): Promise<Citizen> {
+  const { data: newCitizen, error } = await supabase
+    .from("warga")
+    .insert([data])
+    .select()
+    .single();
+
+  if (error) {
+    console.error("❌ Gagal menambah data warga:", error);
+    throw error;
+  }
+
+  return newCitizen;
+}
+
+// Fungsi untuk mendapatkan semua data warga
+export async function getAllCitizens(): Promise<Citizen[]> {
+  const { data, error } = await supabase
+    .from("warga")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("❌ Gagal mendapatkan data warga:", error);
+    throw error;
+  }
+
+  return data;
+}
+
+// Fungsi untuk mendapatkan data warga berdasarkan NIK
+export async function getCitizenByNik(nik: string): Promise<Citizen | null> {
+  const { data, error } = await supabase
+    .from("warga")
+    .select("*")
+    .eq("nik", nik)
+    .single();
+
+  if (error) {
+    if (error.code === "PGRST116") {
+      return null;
+    }
+    console.error("❌ Gagal mendapatkan data warga:", error);
+    throw error;
+  }
+
+  return data;
+}
+
+// Fungsi untuk mengupdate data warga
+export async function updateCitizen(
+  nik: string,
+  data: Partial<Omit<Citizen, "id" | "nik" | "created_at" | "updated_at">>
+): Promise<Citizen> {
+  const { data: updatedCitizen, error } = await supabase
+    .from("warga")
+    .update(data)
+    .eq("nik", nik)
+    .select()
+    .single();
+
+  if (error) {
+    console.error("❌ Gagal mengupdate data warga:", error);
+    throw error;
+  }
+
+  return updatedCitizen;
+}
+
+// Fungsi untuk menghapus data warga
+export async function deleteCitizen(nik: string): Promise<void> {
+  const { error } = await supabase.from("warga").delete().eq("nik", nik);
+
+  if (error) {
+    console.error("❌ Gagal menghapus data warga:", error);
     throw error;
   }
 }
 
-// Export pool untuk digunakan di aplikasi
-export default pool;
+// Interface untuk data kegiatan
+export interface Kegiatan {
+  id?: number;
+  judul: string;
+  deskripsi: string;
+  tanggal: string;
+  waktu: string;
+  lokasi: string;
+  gambar?: string;
+  created_at?: Date;
+  updated_at?: Date;
+}
+
+// Fungsi untuk menambah kegiatan
+export async function addKegiatan(
+  data: Omit<Kegiatan, "id" | "created_at" | "updated_at">
+): Promise<Kegiatan> {
+  const { data: newKegiatan, error } = await supabase
+    .from("kegiatan")
+    .insert([data])
+    .select()
+    .single();
+
+  if (error) {
+    console.error("❌ Gagal menambah kegiatan:", error);
+    throw error;
+  }
+
+  return newKegiatan;
+}
+
+// Fungsi untuk mendapatkan semua kegiatan
+export async function getAllKegiatan(): Promise<Kegiatan[]> {
+  const { data, error } = await supabase
+    .from("kegiatan")
+    .select("*")
+    .order("tanggal", { ascending: false })
+    .order("waktu", { ascending: false });
+
+  if (error) {
+    console.error("❌ Gagal mendapatkan data kegiatan:", error);
+    throw error;
+  }
+
+  return data;
+}
+
+// Fungsi untuk mendapatkan kegiatan berdasarkan ID
+export async function getKegiatanById(id: number): Promise<Kegiatan | null> {
+  const { data, error } = await supabase
+    .from("kegiatan")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    if (error.code === "PGRST116") {
+      return null;
+    }
+    console.error("❌ Gagal mendapatkan data kegiatan:", error);
+    throw error;
+  }
+
+  return data;
+}
+
+// Fungsi untuk mengupdate kegiatan
+export async function updateKegiatan(
+  id: number,
+  data: Partial<Omit<Kegiatan, "id" | "created_at" | "updated_at">>
+): Promise<void> {
+  const { error } = await supabase.from("kegiatan").update(data).eq("id", id);
+
+  if (error) {
+    console.error("❌ Gagal mengupdate kegiatan:", error);
+    throw error;
+  }
+}
+
+// Fungsi untuk menghapus kegiatan
+export async function deleteKegiatan(id: number): Promise<void> {
+  const { error } = await supabase.from("kegiatan").delete().eq("id", id);
+
+  if (error) {
+    console.error("❌ Gagal menghapus kegiatan:", error);
+    throw error;
+  }
+}
+
+// Interface untuk statistik warga
+export interface CitizenStats {
+  totalWarga: number;
+  totalLakiLaki: number;
+  totalPerempuan: number;
+}
+
+// Fungsi untuk mendapatkan statistik warga
+export async function getCitizenStats(): Promise<CitizenStats> {
+  try {
+    // Get total warga
+    const { count: totalWarga, error: totalError } = await supabase
+      .from("warga")
+      .select("*", { count: "exact", head: true });
+
+    if (totalError) throw totalError;
+
+    // Get total laki-laki
+    const { count: totalLakiLaki, error: maleError } = await supabase
+      .from("warga")
+      .select("*", { count: "exact", head: true })
+      .eq("jenis_kelamin", "Laki-laki");
+
+    if (maleError) throw maleError;
+
+    // Get total perempuan
+    const { count: totalPerempuan, error: femaleError } = await supabase
+      .from("warga")
+      .select("*", { count: "exact", head: true })
+      .eq("jenis_kelamin", "Perempuan");
+
+    if (femaleError) throw femaleError;
+
+    return {
+      totalWarga: totalWarga || 0,
+      totalLakiLaki: totalLakiLaki || 0,
+      totalPerempuan: totalPerempuan || 0,
+    };
+  } catch (error) {
+    console.error("❌ Gagal mendapatkan statistik warga:", error);
+    throw error;
+  }
+}
