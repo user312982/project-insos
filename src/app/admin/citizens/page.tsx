@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Citizen } from "@/lib/db";
 
 export default function CitizenTablePage() {
@@ -13,30 +14,24 @@ export default function CitizenTablePage() {
     fetchCitizens();
   }, []);
 
+  const supabase = createClientComponentClient();
+
   const fetchCitizens = async () => {
     try {
       setError(null);
       setIsLoading(true);
 
-      const response = await fetch("/api/citizens");
-      const result = await response.json();
+      const { data, error } = await supabase
+        .from("warga")
+        .select("*")
+        .order("nama");
 
-      if (!response.ok) {
-        console.error("Response not OK:", response.status, result);
-        throw new Error(result.error || "Gagal mengambil data warga");
+      if (error) {
+        console.error("Error fetching citizens:", error);
+        throw error;
       }
 
-      if (!result.success) {
-        console.error("Result not successful:", result);
-        throw new Error(result.error || "Gagal mengambil data warga");
-      }
-
-      if (!Array.isArray(result.data)) {
-        console.error("Data is not an array:", result);
-        throw new Error("Format data tidak valid");
-      }
-
-      setCitizens(result.data);
+      setCitizens(data);
     } catch (err) {
       console.error("Error fetching citizens:", err);
       setError(
@@ -53,14 +48,10 @@ export default function CitizenTablePage() {
     }
 
     try {
-      const response = await fetch(`/api/citizens/${nik}`, {
-        method: "DELETE",
-      });
+      const { error } = await supabase.from("warga").delete().eq("nik", nik);
 
-      const result = await response.json();
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.error || "Gagal menghapus data warga");
+      if (error) {
+        throw error;
       }
 
       // Show success message

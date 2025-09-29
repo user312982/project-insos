@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 interface CitizenFormData {
   nama: string;
@@ -58,6 +59,8 @@ export default function CitizenForm() {
     }
 
     try {
+      const supabase = createClientComponentClient();
+
       // Convert field names to match database schema
       const dbData = {
         nama: formData.nama,
@@ -67,18 +70,13 @@ export default function CitizenForm() {
         status_perkawinan: formData.statusPerkawinan,
       };
 
-      const response = await fetch("/api/citizens", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dbData),
-      });
+      const { error } = await supabase.from("warga").insert([dbData]);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Terjadi kesalahan saat menyimpan data");
+      if (error) {
+        if (error.code === "23505") {
+          throw new Error("NIK sudah terdaftar");
+        }
+        throw error;
       }
 
       setSuccess(true);

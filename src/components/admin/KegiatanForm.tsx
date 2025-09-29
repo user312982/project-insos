@@ -1,13 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import type { Kegiatan } from "@/lib/db";
 
-interface KegiatanFormData
-  extends Omit<Kegiatan, "id" | "createdAt" | "updatedAt"> {}
+interface KegiatanFormProps {
+  editId?: number | null;
+  onSuccess?: () => void;
+}
 
-export default function KegiatanForm() {
-  const [formData, setFormData] = useState<KegiatanFormData>({
+export default function KegiatanForm({ editId, onSuccess }: KegiatanFormProps) {
+  const supabase = createClientComponentClient();
+  const [formData, setFormData] = useState<
+    Omit<Kegiatan, "id" | "createdAt" | "updatedAt">
+  >({
     judul: "",
     deskripsi: "",
     tanggal: "",
@@ -30,6 +36,34 @@ export default function KegiatanForm() {
     }));
   };
 
+  useEffect(() => {
+    const fetchKegiatan = async () => {
+      if (editId) {
+        setIsSubmitting(true);
+        try {
+          const { data, error } = await supabase
+            .from("kegiatan")
+            .select("*")
+            .eq("id", editId)
+            .single();
+
+          if (error) throw error;
+          if (data) {
+            setFormData(data);
+          }
+        } catch (err) {
+          setError(
+            err instanceof Error ? err.message : "Gagal mengambil data kegiatan"
+          );
+        } finally {
+          setIsSubmitting(false);
+        }
+      }
+    };
+
+    fetchKegiatan();
+  }, [editId]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -37,29 +71,40 @@ export default function KegiatanForm() {
     setSuccess(false);
 
     try {
-      const response = await fetch("/api/kegiatan", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      let error;
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Terjadi kesalahan saat menyimpan data");
+      if (editId) {
+        // Update existing kegiatan
+        const { error: updateError } = await supabase
+          .from("kegiatan")
+          .update(formData)
+          .eq("id", editId);
+        error = updateError;
+      } else {
+        // Create new kegiatan
+        const { error: insertError } = await supabase
+          .from("kegiatan")
+          .insert([formData]);
+        error = insertError;
       }
 
+      if (error) throw error;
+
       setSuccess(true);
-      setFormData({
-        judul: "",
-        deskripsi: "",
-        tanggal: "",
-        waktu: "",
-        lokasi: "",
-        gambar: "",
-      });
+      if (!editId) {
+        setFormData({
+          judul: "",
+          deskripsi: "",
+          tanggal: "",
+          waktu: "",
+          lokasi: "",
+          gambar: "",
+        });
+      }
+
+      if (onSuccess) {
+        onSuccess();
+      }
     } catch (err) {
       setError(
         err instanceof Error
@@ -187,17 +232,34 @@ export default function KegiatanForm() {
 
       {success && (
         <div className="bg-green-50 text-green-600 p-3 rounded-md">
-          Kegiatan berhasil ditambahkan!
+          {editId
+            ? "Kegiatan berhasil diperbarui!"
+            : "Kegiatan berhasil ditambahkan!"}
         </div>
       )}
 
-      <div className="pt-4">
+      <div className="pt-4 flex space-x-4">
+        <button
+          type="button"
+          onClick={() => {
+            if (onSuccess) {
+              onSuccess();
+            }
+          }}
+          className="flex-1 bg-gray-100 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+        >
+          Batal
+        </button>
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-[#00633f] text-white py-2 px-4 rounded-md hover:bg-[#005435] focus:outline-none focus:ring-2 focus:ring-[#00633f] focus:ring-offset-2 disabled:bg-[#00633f]/50 disabled:cursor-not-allowed"
+          className="flex-1 bg-[#00633f] text-white py-2 px-4 rounded-md hover:bg-[#005435] focus:outline-none focus:ring-2 focus:ring-[#00633f] focus:ring-offset-2 disabled:bg-[#00633f]/50 disabled:cursor-not-allowed"
         >
-          {isSubmitting ? "Menyimpan..." : "Simpan Kegiatan"}
+          {isSubmitting
+            ? "Menyimpan..."
+            : editId
+            ? "Perbarui Kegiatan"
+            : "Simpan Kegiatan"}
         </button>
       </div>
     </form>

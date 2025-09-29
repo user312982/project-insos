@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import type { Citizen } from "@/lib/db";
 
 interface EditCitizenFormProps {
@@ -21,17 +22,21 @@ export default function EditCitizenForm({ nik }: EditCitizenFormProps) {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
+  const supabase = createClientComponentClient();
+
   useEffect(() => {
     const fetchCitizen = async () => {
       try {
-        const response = await fetch(`/api/citizens/${nik}`);
-        const result = await response.json();
+        const { data, error } = await supabase
+          .from("warga")
+          .select("*")
+          .eq("nik", nik)
+          .single();
 
-        if (!response.ok || !result.success) {
-          throw new Error(result.error || "Gagal mengambil data warga");
+        if (error) throw error;
+        if (data) {
+          setFormData(data);
         }
-
-        setFormData(result.data);
       } catch (err) {
         setError(
           err instanceof Error ? err.message : "Gagal mengambil data warga"
@@ -61,19 +66,12 @@ export default function EditCitizenForm({ nik }: EditCitizenFormProps) {
     setSuccess(false);
 
     try {
-      const response = await fetch(`/api/citizens/${nik}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const { error } = await supabase
+        .from("warga")
+        .update(formData)
+        .eq("nik", nik);
 
-      const result = await response.json();
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.error || "Gagal memperbarui data warga");
-      }
+      if (error) throw error;
 
       setSuccess(true);
       // Redirect back to the table view after successful update
