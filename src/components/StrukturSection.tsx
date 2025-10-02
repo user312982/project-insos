@@ -14,7 +14,7 @@ export default function StrukturSection() {
                 {/* Foto */}
                 <div className="relative w-full h-48">
                   <Image
-                    src="/struktur/ketua-rt.jpg"
+                    src="/struktur/ketua-rt.png"
                     alt="Ketua RT"
                     fill
                     className="object-cover"

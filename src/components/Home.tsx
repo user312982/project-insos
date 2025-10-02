@@ -8,7 +8,7 @@ export default function HomeSection() {
         <div className="flex-1 flex flex-col items-center justify-center">
           <div className="relative w-64 h-80 mb-6">
             <Image
-              src="/struktur/ketua-rt.jpg"
+              src="/struktur/ketua-rt.png"
                     alt="Ketua RT"
                     fill
                     className="object-cover"

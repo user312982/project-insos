@@ -108,7 +108,7 @@ const contactItems: ContactItem[] = [
   },
   {
     label: 'Jam Layanan',
-    value: 'Senin - Jumat 08.00 - 17.00 WIB',
+    value: 'Senin - Jumat 08.00 - 17.00 WITA',
     icon: (
       <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
