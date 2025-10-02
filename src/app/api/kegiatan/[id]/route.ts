@@ -3,10 +3,11 @@ import { getKegiatanById, updateKegiatan, deleteKegiatan } from "@/lib/db";
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const kegiatan = await getKegiatanById(parseInt(params.id));
+    const { id } = await params;
+    const kegiatan = await getKegiatanById(parseInt(id));
     if (!kegiatan) {
       return NextResponse.json(
         { error: "Kegiatan tidak ditemukan" },
@@ -25,11 +26,12 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const data = await request.json();
-    await updateKegiatan(parseInt(params.id), data);
+    await updateKegiatan(parseInt(id), data);
     return NextResponse.json({ message: "Kegiatan berhasil diupdate" });
   } catch (error) {
     console.error("Error updating kegiatan:", error);
@@ -42,10 +44,11 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await deleteKegiatan(parseInt(params.id));
+    const { id } = await params;
+    await deleteKegiatan(parseInt(id));
     return NextResponse.json({ message: "Kegiatan berhasil dihapus" });
   } catch (error) {
     console.error("Error deleting kegiatan:", error);

@@ -2,14 +2,14 @@ import { NextResponse } from "next/server";
 import { getCitizenByNik, updateCitizen, deleteCitizen } from "@/lib/db";
 import type { Citizen } from "@/lib/db";
 
-interface Params {
-  nik: string;
-}
-
 // GET endpoint to fetch a single citizen's data
-export async function GET(request: Request, { params }: { params: Params }) {
+export async function GET(
+  request: Request, 
+  { params }: { params: Promise<{ nik: string }> }
+) {
   try {
-    const data = await getCitizenByNik(params.nik);
+    const { nik } = await params;
+    const data = await getCitizenByNik(nik);
 
     if (!data) {
       return NextResponse.json(
@@ -29,8 +29,12 @@ export async function GET(request: Request, { params }: { params: Params }) {
 }
 
 // PUT endpoint to update citizen data
-export async function PUT(request: Request, { params }: { params: Params }) {
+export async function PUT(
+  request: Request, 
+  { params }: { params: Promise<{ nik: string }> }
+) {
   try {
+    const { nik } = await params;
     const body: Partial<Citizen> = await request.json();
 
     // Only allow updating specific fields
@@ -51,7 +55,7 @@ export async function PUT(request: Request, { params }: { params: Params }) {
       );
     }
 
-    const data = await updateCitizen(params.nik, updateData);
+    const data = await updateCitizen(nik, updateData);
     return NextResponse.json({ success: true, data });
   } catch (error) {
     console.error("Error updating citizen:", error);
@@ -63,9 +67,13 @@ export async function PUT(request: Request, { params }: { params: Params }) {
 }
 
 // DELETE endpoint to remove a citizen
-export async function DELETE(request: Request, { params }: { params: Params }) {
+export async function DELETE(
+  request: Request, 
+  { params }: { params: Promise<{ nik: string }> }
+) {
   try {
-    const citizen = await getCitizenByNik(params.nik);
+    const { nik } = await params;
+    const citizen = await getCitizenByNik(nik);
     if (!citizen) {
       return NextResponse.json(
         { success: false, error: "Data warga tidak ditemukan" },
@@ -73,7 +81,7 @@ export async function DELETE(request: Request, { params }: { params: Params }) {
       );
     }
 
-    await deleteCitizen(params.nik);
+    await deleteCitizen(nik);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error deleting citizen:", error);
