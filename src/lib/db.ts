@@ -3,7 +3,7 @@ import { supabase } from "./supabase";
 // Fungsi untuk test koneksi
 export async function testConnection(): Promise<boolean> {
   try {
-    const { data, error } = await supabase.from("warga").select("count");
+    const { error } = await supabase.from("warga").select("count");
     if (error) throw error;
     console.log("✅ Koneksi ke database berhasil!");
     return true;
