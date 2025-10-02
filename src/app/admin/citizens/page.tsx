@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { supabase } from "@/lib/supabase";
 import { Citizen } from "@/lib/db";
 
 export default function CitizenTablePage() {
@@ -13,8 +13,6 @@ export default function CitizenTablePage() {
   useEffect(() => {
     fetchCitizens();
   }, []);
-
-  const supabase = createClientComponentClient();
 
   const fetchCitizens = async () => {
     try {

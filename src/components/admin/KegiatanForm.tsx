@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { supabase } from "@/lib/supabase";
 import type { Kegiatan } from "@/lib/db";
 
 interface KegiatanFormProps {
@@ -10,7 +10,6 @@ interface KegiatanFormProps {
 }
 
 export default function KegiatanForm({ editId, onSuccess }: KegiatanFormProps) {
-  const supabase = createClientComponentClient();
   const [formData, setFormData] = useState<
     Omit<Kegiatan, "id" | "createdAt" | "updatedAt">
   >({

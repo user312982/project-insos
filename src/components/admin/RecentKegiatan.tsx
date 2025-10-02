@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { supabase } from "@/lib/supabase";
 import Link from "next/link";
 
 interface Kegiatan {
@@ -14,7 +14,6 @@ interface Kegiatan {
 export default function RecentKegiatan() {
   const [kegiatan, setKegiatan] = useState<Kegiatan[]>([]);
   const [loading, setLoading] = useState(true);
-  const supabase = createClientComponentClient();
 
   useEffect(() => {
     const fetchKegiatan = async () => {

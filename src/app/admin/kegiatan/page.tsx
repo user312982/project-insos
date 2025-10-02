@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { supabase } from "@/lib/supabase";
 import KegiatanForm from "@/components/admin/KegiatanForm";
 
 interface Kegiatan {
@@ -19,7 +19,6 @@ export default function AdminKegiatanPage() {
   const [kegiatan, setKegiatan] = useState<Kegiatan[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState<number | null>(null);
-  const supabase = createClientComponentClient();
 
   const fetchKegiatan = async () => {
     try {

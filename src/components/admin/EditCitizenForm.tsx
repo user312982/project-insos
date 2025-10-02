@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { supabase } from "@/lib/supabase";
 import type { Citizen } from "@/lib/db";
 
 interface EditCitizenFormProps {
@@ -21,8 +21,6 @@ export default function EditCitizenForm({ nik }: EditCitizenFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-
-  const supabase = createClientComponentClient();
 
   useEffect(() => {
     const fetchCitizen = async () => {

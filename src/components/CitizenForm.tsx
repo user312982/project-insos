@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { supabase } from "@/lib/supabase";
 
 interface CitizenFormData {
   nama: string;
@@ -59,8 +59,6 @@ export default function CitizenForm() {
     }
 
     try {
-      const supabase = createClientComponentClient();
-
       // Convert field names to match database schema
       const dbData = {
         nama: formData.nama,
