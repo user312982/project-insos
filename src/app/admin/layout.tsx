@@ -1,6 +1,7 @@
 "use client";
 
-import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 
 interface AdminLayoutProps {
@@ -8,6 +9,67 @@ interface AdminLayoutProps {
 }
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
+  const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const checkAuth = () => {
+      try {
+        console.log("� Checking admin session...");
+
+        // Cek apakah ada admin session cookie
+        const cookies = document.cookie;
+        const hasAdminSession = cookies.includes("admin-session=");
+
+        console.log("Cookies:", cookies);
+        console.log("Has admin session:", hasAdminSession);
+
+        if (hasAdminSession) {
+          console.log("✅ Admin session found - allowing access");
+          setIsAuthenticated(true);
+        } else {
+          console.log("❌ No admin session - redirecting to home");
+          setIsAuthenticated(false);
+          router.replace("/");
+        }
+      } catch (error) {
+        console.log("❌ Auth check failed:", error);
+        setIsAuthenticated(false);
+        router.replace("/");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkAuth();
+  }, [router]);
+
+  // Show loading while checking authentication
+  if (isLoading || isAuthenticated === null) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#00633f] mx-auto mb-4"></div>
+          <p className="text-gray-600">Checking authentication...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // If not authenticated, show loading (redirect is in progress)
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#00633f] mx-auto mb-4"></div>
+          <p className="text-gray-600">Redirecting to home...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // If authenticated, show admin layout
   return (
     <div className="min-h-screen bg-white">
       <AdminSidebar />

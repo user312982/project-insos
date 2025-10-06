@@ -203,6 +203,16 @@ export interface CitizenStats {
   totalPerempuan: number;
 }
 
+// Interface untuk user admin
+export interface User {
+  id?: number;
+  username: string;
+  password?: string;
+  role: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
 // Fungsi untuk mendapatkan statistik warga
 export async function getCitizenStats(): Promise<CitizenStats> {
   try {
@@ -238,4 +248,50 @@ export async function getCitizenStats(): Promise<CitizenStats> {
     console.error("❌ Gagal mendapatkan statistik warga:", error);
     throw error;
   }
+}
+
+// ============ FUNGSI AUTHENTICATION ============
+
+// Fungsi untuk login user
+export async function loginUser(
+  username: string,
+  password: string
+): Promise<User | null> {
+  const { data, error } = await supabase
+    .from("users")
+    .select("*")
+    .eq("username", username)
+    .eq("password", password)
+    .single();
+
+  if (error) {
+    if (error.code === "PGRST116") {
+      return null; // User tidak ditemukan
+    }
+    console.error("❌ Gagal login:", error);
+    throw error;
+  }
+
+  // Hapus password dari response untuk keamanan
+  const { password: _, ...userWithoutPassword } = data;
+  return userWithoutPassword;
+}
+
+// Fungsi untuk mendapatkan user berdasarkan ID
+export async function getUserById(id: number): Promise<User | null> {
+  const { data, error } = await supabase
+    .from("users")
+    .select("id, username, role, created_at, updated_at")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    if (error.code === "PGRST116") {
+      return null;
+    }
+    console.error("❌ Gagal mendapatkan user:", error);
+    throw error;
+  }
+
+  return data;
 }
