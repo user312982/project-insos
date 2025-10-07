@@ -273,7 +273,8 @@ export async function loginUser(
   }
 
   // Hapus password dari response untuk keamanan
-  const { password: _, ...userWithoutPassword } = data;
+  const { password: _password, ...userWithoutPassword } = data;
+  void _password;
   return userWithoutPassword;
 }
 

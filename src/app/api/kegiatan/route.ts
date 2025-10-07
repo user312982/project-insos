@@ -1,11 +1,5 @@
 import { NextResponse } from "next/server";
-import {
-  addKegiatan,
-  getAllKegiatan,
-  getKegiatanById,
-  updateKegiatan,
-  deleteKegiatan,
-} from "@/lib/db";
+import { addKegiatan, getAllKegiatan } from "@/lib/db";
 
 export async function POST(request: Request) {
   try {

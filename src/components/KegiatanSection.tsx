@@ -21,8 +21,8 @@ const getActivityIcon = (title: string): string => {
 
 // Helper function to get solid color - using one matching color for all
 const getSolidColor = (index: number): string => {
-    // Using consistent emerald/green color that matches the #0b5232 background theme
-    return 'bg-emerald-700';
+    const colors = ['bg-emerald-700', 'bg-blue-700', 'bg-purple-700', 'bg-amber-700'];
+    return colors[index % colors.length];
 };
 
 // Helper function to format date
@@ -177,7 +177,10 @@ export default function KegiatanSection() {
                                             /* Header with solid color and title */
                                             <div className={`${getSolidColor(index)} p-6 relative overflow-hidden`}>
                                                 <div className="absolute inset-0 bg-white/10"></div>
-                                                <div className="flex items-center justify-center relative z-10">
+                                                <div className="flex flex-col items-center justify-center gap-2 relative z-10">
+                                                    <span className="text-3xl" aria-hidden="true">
+                                                        {getActivityIcon(activity.judul)}
+                                                    </span>
                                                     <h3 className="text-2xl font-bold text-white text-center drop-shadow-lg">
                                                         {activity.judul}
                                                     </h3>

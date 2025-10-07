@@ -1,8 +1,6 @@
 // app/page.tsx
 import Navbar from "@/components/Navbar";
 import ImageCarousel from "@/components/ImageCarousel";
-import Image from "next/image";
-import SejarahSection from "@/components/SejarahSection";
 import StrukturSection from "@/components/StrukturSection";
 import AdministrasiSection from "@/components/AdministrasiSection";
 import KegiatanSection from "@/components/KegiatanSection";
@@ -21,7 +19,7 @@ export default function Home() {
         <ImageCarousel className="-mt-16" />
 
         {/* Home Section */}
-        <HomeSection/>
+  <HomeSection />
 
         {/* Visi Misi Section */}
         <VisiMisiSection />
