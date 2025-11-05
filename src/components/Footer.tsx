@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react';
-import Image from 'next/image';
+import type { ReactNode } from "react";
+import Image from "next/image";
 
 type LinkSection = {
   title: string;
@@ -21,41 +21,46 @@ type SocialLink = {
 
 const linkSections: LinkSection[] = [
   {
-    title: 'Unit Layanan',
+    title: "Unit Layanan",
     links: [
-      { label: 'Administrasi Warga', href: '#administrasi' },
-      { label: 'Fasilitas Lingkungan', href: '#fasilitas' },
-      { label: 'Program Kegiatan', href: '#kegiatan' },
-      { label: 'Peta Wilayah', href: '#lokasi' },
+      { label: "Administrasi Warga", href: "#administrasi" },
+      { label: "Fasilitas Lingkungan", href: "#fasilitas" },
+      { label: "Program Kegiatan", href: "#kegiatan" },
+      { label: "Peta Wilayah", href: "#lokasi" },
     ],
   },
   {
-    title: 'Informasi',
+    title: "Informasi",
     links: [
-      { label: 'Sejarah RT 54', href: '#sejarah' },
-      { label: 'Struktur Kepengurusan', href: '#struktur' },
-      { label: 'Berita & Publikasi', href: '#kegiatan' },
-      { label: 'Hubungi Pengurus', href: '#kontak' },
+      { label: "Sejarah RT 54", href: "#sejarah" },
+      { label: "Struktur Kepengurusan", href: "#struktur" },
+      { label: "Berita & Publikasi", href: "#kegiatan" },
+      { label: "Hubungi Pengurus", href: "#kontak" },
     ],
   },
   {
-    title: 'Tentang Kami',
+    title: "Tentang Kami",
     links: [
-      { label: 'Profil RT', href: '#home' },
-      { label: 'Visi & Misi', href: '#home' },
-      { label: 'Layanan Masyarakat', href: '#administrasi' },
-      { label: 'Kemitraan', href: '#kegiatan' },
+      { label: "Profil RT", href: "#home" },
+      { label: "Visi & Misi", href: "#home" },
+      { label: "Layanan Masyarakat", href: "#administrasi" },
+      { label: "Kemitraan", href: "#kegiatan" },
     ],
   },
 ];
 
 const contactItems: ContactItem[] = [
   {
-    label: 'Telepon',
-    value: '+62 812-3456-7890',
-    href: 'tel:+6281234567890',
+    label: "Telepon",
+    value: "+62 812-3456-7890",
+    href: "tel:+6281234567890",
     icon: (
-      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg
+        className="h-5 w-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -66,11 +71,16 @@ const contactItems: ContactItem[] = [
     ),
   },
   {
-    label: 'Email',
-    value: 'rt54@kelurahan.id',
-    href: 'mailto:rt54@kelurahan.id',
+    label: "Email",
+    value: "rt54@kelurahan.id",
+    href: "mailto:rt54@kelurahan.id",
     icon: (
-      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg
+        className="h-5 w-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -87,10 +97,16 @@ const contactItems: ContactItem[] = [
     ),
   },
   {
-    label: 'Alamat',
-    value: 'Jl. TB Simatupang No.22, RT 54/RW 08, Kel. Sukamaju, Kec. Pasar Minggu, Jakarta Selatan 12540',
+    label: "Alamat",
+    value:
+      "Jl. TB Simatupang No.22, RT 54/RW 08, Kel. Sukamaju, Kec. Pasar Minggu, Balikapapan 12540",
     icon: (
-      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg
+        className="h-5 w-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -107,10 +123,15 @@ const contactItems: ContactItem[] = [
     ),
   },
   {
-    label: 'Jam Layanan',
-    value: 'Senin - Jumat 08.00 - 17.00 WITA',
+    label: "Jam Layanan",
+    value: "Senin - Jumat 08.00 - 17.00 WITA",
     icon: (
-      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg
+        className="h-5 w-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -129,10 +150,10 @@ const contactItems: ContactItem[] = [
 ];
 
 const socialLinks: SocialLink[] = [
-  { name: 'WhatsApp', href: 'https://wa.me/089', label: 'WA' },
-  { name: 'Instagram', href: 'https://instagram.com', label: 'IG' },
-  { name: 'YouTube', href: 'https://youtube.com', label: 'YT' },
-  { name: 'LinkedIn', href: 'https://linkedin.com', label: 'IN' },
+  { name: "WhatsApp", href: "https://wa.me/089", label: "WA" },
+  { name: "Instagram", href: "https://instagram.com", label: "IG" },
+  { name: "YouTube", href: "https://youtube.com", label: "YT" },
+  { name: "LinkedIn", href: "https://linkedin.com", label: "IN" },
 ];
 
 export default function Footer() {
@@ -160,11 +181,13 @@ export default function Footer() {
                 Bergabunglah Bersama Kami
               </p>
               <h2 className="text-3xl font-bold leading-tight sm:text-4xl">
-                Jadilah bagian dari gerakan pelestari lingkungan dan pelayanan warga RT 54.
+                Jadilah bagian dari gerakan pelestari lingkungan dan pelayanan
+                warga RT 54.
               </h2>
               <p className="text-base text-white/80 sm:text-lg">
-                Kami berkolaborasi dengan masyarakat untuk menciptakan lingkungan hijau, aman, dan harmonis.
-                Mari wujudkan kampung yang maju dan lestari bersama-sama.
+                Kami berkolaborasi dengan masyarakat untuk menciptakan
+                lingkungan hijau, aman, dan harmonis. Mari wujudkan kampung yang
+                maju dan lestari bersama-sama.
               </p>
               <a
                 href="#kegiatan"
@@ -175,9 +198,12 @@ export default function Footer() {
             </div>
 
             <div className="rounded-3xl border border-white/15 bg-white/10 p-8 shadow-xl backdrop-blur">
-              <h3 className="text-xl font-semibold">Sekretariat RT 54 Sukamaju</h3>
+              <h3 className="text-xl font-semibold">
+                Sekretariat RT 54 Karang Joang
+              </h3>
               <p className="mt-2 text-sm text-white/75">
-                Terbuka untuk konsultasi administrasi, koordinasi kegiatan warga, serta layanan informasi lingkungan.
+                Terbuka untuk konsultasi administrasi, koordinasi kegiatan
+                warga, serta layanan informasi lingkungan.
               </p>
 
               <dl className="mt-6 space-y-5">
@@ -221,13 +247,19 @@ export default function Footer() {
                   className="h-16 w-16 rounded-full border border-white/20 bg-white/80 object-contain p-2"
                 />
                 <div>
-                  <p className="text-lg font-semibold">RT 54 Kel. Sukamaju</p>
-                  <p className="text-sm text-white/70">RW 08, Kec. Pasar Minggu</p>
+                  <p className="text-lg font-semibold">
+                    RT 54 Kel. Karang Joang
+                  </p>
+                  <p className="text-sm text-white/70">
+                    RW 08, Kec. Pasar Minggu
+                  </p>
                 </div>
               </div>
               <p className="text-sm leading-relaxed text-white/80">
-                RT 54 hadir sebagai garda terdepan pelayanan publik di lingkungan Kelurahan Sukamaju. Kami memastikan
-                keterlibatan warga dalam setiap program pembangunan, sosial, dan pelestarian lingkungan.
+                RT 54 hadir sebagai garda terdepan pelayanan publik di
+                lingkungan Kelurahan Karang Joang. Kami memastikan keterlibatan
+                warga dalam setiap program pembangunan, sosial, dan pelestarian
+                lingkungan.
               </p>
               <div className="flex flex-wrap gap-3">
                 {socialLinks.map((social) => (
@@ -253,7 +285,10 @@ export default function Footer() {
                 <ul className="mt-4 space-y-3 text-sm text-white/80">
                   {section.links.map((link) => (
                     <li key={link.label}>
-                      <a href={link.href} className="transition hover:text-white">
+                      <a
+                        href={link.href}
+                        className="transition hover:text-white"
+                      >
                         {link.label}
                       </a>
                     </li>
@@ -264,7 +299,10 @@ export default function Footer() {
           </div>
 
           <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 text-sm text-white/60 md:flex-row md:items-center md:justify-between">
-            <p>© {currentYear} RT 54 Kelurahan Sukamaju. Hak cipta dilindungi.</p>
+            <p>
+              © {currentYear} RT 54 Kelurahan Karang Joang. Hak cipta
+              dilindungi.
+            </p>
             <div className="flex flex-wrap gap-x-6 gap-y-2">
               <span>Whistleblowing System</span>
               <span>Transparansi Anggaran</span>

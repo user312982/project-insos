@@ -83,36 +83,6 @@ export default function AdministrasiSection() {
             </div>
             <h3 className="text-xl font-semibold text-gray-700">Perempuan</h3>
           </div>
-
-          {/* Kepala Keluarga */}
-          <div className="text-center">
-            <div className="bg-red-500 text-white text-5xl font-bold p-6 rounded-lg shadow-lg mb-3">
-              304
-            </div>
-            <h3 className="text-xl font-semibold text-gray-700">
-              Kepala Keluarga
-            </h3>
-          </div>
-
-          {/* Penduduk Sementara */}
-          <div className="text-center">
-            <div className="bg-red-500 text-white text-5xl font-bold p-6 rounded-lg shadow-lg mb-3">
-              79
-            </div>
-            <h3 className="text-xl font-semibold text-gray-700">
-              Penduduk Sementara
-            </h3>
-          </div>
-
-          {/* Mutasi Penduduk */}
-          <div className="text-center">
-            <div className="bg-red-500 text-white text-5xl font-bold p-6 rounded-lg shadow-lg mb-3">
-              38
-            </div>
-            <h3 className="text-xl font-semibold text-gray-700">
-              Mutasi Penduduk
-            </h3>
-          </div>
         </div>
       </div>
     </section>
