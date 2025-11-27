@@ -3,21 +3,21 @@ import Image from 'next/image';
 export default function FasilitasSection() {
     const facilities = [
         {
-            title: "Masjid Al-Ikhlas",
-            description: "Pusat ibadah dan kegiatan keagamaan warga RT 54 dengan kapasitas 200 jamaah. Dilengkapi dengan sound system dan AC.",
+            title: "Musholla Al'Falah",
+            description: "Pusat ibadah dan kegiatan keagamaan warga RT 54 dengan kapasitas 70 jamaah. Dilengkapi dengan AC.",
             image: "/fasilitas/masjid.jpg",
             bgColor: "bg-emerald-600",
             features: ["Sholat 5 waktu", "Pengajian rutin", "Kajian Islam", "Pelatihan mengaji"]
         },
         {
-            title: "Posyandu Melati",
+            title: "Posyandu",
             description: "Fasilitas kesehatan terpadu untuk ibu dan anak dengan layanan pemeriksaan rutin, imunisasi, dan konseling gizi.",
             image: "/fasilitas/posyandu.jpg",
             bgColor: "bg-cyan-600",
             features: ["Pemeriksaan kesehatan", "Imunisasi balita", "Konseling gizi", "Senam lansia"]
         },
         {
-            title: "PAUD Ceria",
+            title: "PAUD",
             description: "Pendidikan anak usia dini dengan kurikulum bermain sambil belajar untuk mengembangkan kreativitas dan karakter anak.",
             image: "/fasilitas/paud.png",
             bgColor: "bg-pink-600",
@@ -31,16 +31,9 @@ export default function FasilitasSection() {
             features: ["Kolam ikan lele", "Gazebo santai", "Area parkir", "Warung makan"]
         },
         {
-            title: "Balai Warga",
-            description: "Pusat kegiatan warga untuk rapat, acara bersama, dan pelayanan administrasi RT dengan kapasitas 100 orang.",
-            image: "/fasilitas/balai.jpg",
-            bgColor: "bg-indigo-600",
-            features: ["Ruang rapat", "Pelayanan surat", "Acara warga", "Pelatihan keterampilan"]
-        },
-        {
-            title: "Taman Bermain",
+            title: "Lapangan",
             description: "Area bermain anak yang aman dengan berbagai permainan untuk mendukung tumbuh kembang dan rekreasi anak-anak.",
-            image: "/fasilitas/taman.jpg",
+            image: "/fasilitas/lapangan.png",
             bgColor: "bg-rose-600",
             features: ["Ayunan anak", "Perosotan", "Jungkat-jungkit", "Area olahraga mini"]
         }

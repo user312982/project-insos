@@ -8,7 +8,6 @@ import PetaSection from "@/components/PetaSection";
 import Footer from "@/components/Footer";
 import FasilitasSection from "@/components/FasilitasSection";
 import HomeSection from "@/components/Home";
-import VisiMisiSection from "@/components/VisiMisiSection";
 
 export default function Home() {
   return (
@@ -19,14 +18,10 @@ export default function Home() {
         <ImageCarousel className="-mt-16" />
 
         {/* Home Section */}
-  <HomeSection />
-
-        {/* Visi Misi Section */}
-        <VisiMisiSection />
+        <HomeSection />
 
         {/* Struktur RT Section */}
         <StrukturSection />
-
 
         {/* Administrasi penduduk */}
         <AdministrasiSection />
