@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
-import Link from "next/link";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -131,92 +129,73 @@ export default function Navbar() {
     <div className="min-h-full">
       <nav
         className={`fixed w-full transition-all duration-300 z-50 ${
-          isScrolled
-            ? "bg-[#FFFFFF] shadow-lg"
-            : "bg-[#FFFFFF]/50 backdrop-blur-sm"
+          isScrolled ? "bg-white shadow-md" : "bg-white/95 backdrop-blur-md"
         }`}
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <Image
-                  src="/logo.png"
-                  alt="RT54"
-                  width={32}
-                  height={32}
-                  className="h-8 w-8"
-                />
-              </div>
-              <div className="hidden md:block">
-                <div className="ml-10 flex items-baseline space-x-4">
-                  {navigation.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleNavClick(item.id);
-                      }}
-                      className={`relative px-3 py-2 text-sm font-medium rounded-md transition-colors duration-300 ${
-                        activeSection === item.id
-                          ? "text-[#556B2F] font-semibold"
-                          : "text-rt-lightest hover:bg-rt-medium/80 hover:text-[#556B2F]"
-                      }`}
-                      aria-current={
-                        activeSection === item.id ? "page" : undefined
-                      }
-                    >
-                      {item.name}
-                      {activeSection === item.id && (
-                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#556B2F] rounded-full transition-all duration-300"></span>
-                      )}
-                    </a>
-                  ))}
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="flex h-20 items-center justify-between">
+            {/* Logo - Left Side */}
+            <div className="flex-shrink-0">
+              <a
+                href="#home"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick("home");
+                }}
+                className="flex items-center space-x-2 group"
+              >
+                <div className="relative">
+                  <div className="absolute inset-0 bg-[#00633f] rounded-lg blur-sm opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                  <span className="relative text-3xl font-black text-[#00633f] tracking-tight">
+                    RT<span className="text-[#00805a]">54</span>
+                  </span>
                 </div>
-              </div>
+              </a>
             </div>
-            <div className="hidden md:block">
-              <div className="ml-4 flex items-center md:ml-6">
-                <button
-                  type="button"
-                  className="relative rounded-full p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <span className="absolute -inset-1.5"></span>
-                  <span className="sr-only">View notifications</span>
-                  <svg
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    aria-hidden="true"
+
+            {/* Desktop Navigation - Centered */}
+            <div className="hidden md:flex flex-1 justify-center">
+              <div className="flex items-center space-x-1">
+                {navigation.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(item.id);
+                    }}
+                    className={`relative px-5 py-2.5 text-sm font-medium rounded-lg transition-all duration-300 ${
+                      activeSection === item.id
+                        ? "text-[#00633f] bg-[#00633f]/5"
+                        : "text-gray-700 hover:bg-gray-50 hover:text-[#00633f]"
+                    }`}
+                    aria-current={
+                      activeSection === item.id ? "page" : undefined
+                    }
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
-                    />
-                  </svg>
-                </button>
+                    {item.name}
+                    {activeSection === item.id && (
+                      <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-8 h-0.5 bg-[#00633f] rounded-full"></span>
+                    )}
+                  </a>
+                ))}
               </div>
             </div>
 
-            {/* Mobile menu button*/}
-            <div className="-mr-2 flex md:hidden">
+            {/* Mobile menu button */}
+            <div className="flex md:hidden">
               <button
                 type="button"
-                className="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                className="relative inline-flex items-center justify-center rounded-lg p-2.5 text-gray-700 hover:bg-gray-100 hover:text-[#00633f] focus:outline-none focus:ring-2 focus:ring-[#00633f] transition-colors"
                 onClick={() => setIsOpen(!isOpen)}
               >
-                <span className="absolute -inset-0.5"></span>
                 <span className="sr-only">Open main menu</span>
                 {!isOpen ? (
                   <svg
                     className="block h-6 w-6"
                     fill="none"
                     viewBox="0 0 24 24"
-                    strokeWidth="1.5"
+                    strokeWidth="2"
                     stroke="currentColor"
                     aria-hidden="true"
                   >
@@ -231,7 +210,7 @@ export default function Navbar() {
                     className="block h-6 w-6"
                     fill="none"
                     viewBox="0 0 24 24"
-                    strokeWidth="1.5"
+                    strokeWidth="2"
                     stroke="currentColor"
                     aria-hidden="true"
                   >
@@ -248,8 +227,12 @@ export default function Navbar() {
         </div>
 
         {/* Mobile menu */}
-        <div className={`${isOpen ? "block" : "hidden"} md:hidden`}>
-          <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+        <div
+          className={`${
+            isOpen ? "block" : "hidden"
+          } md:hidden border-t border-gray-100`}
+        >
+          <div className="space-y-1 px-4 py-4 bg-white">
             {navigation.map((item) => (
               <a
                 key={item.name}
@@ -260,83 +243,14 @@ export default function Navbar() {
                 }}
                 className={`${
                   activeSection === item.id
-                    ? "bg-gray-900 text-white"
-                    : "text-gray-300 hover:bg-gray-700 hover:text-white"
-                } block rounded-md px-3 py-2 text-base font-medium relative transition-colors duration-300`}
+                    ? "bg-[#00633f] text-white"
+                    : "text-gray-700 hover:bg-gray-50 hover:text-[#00633f]"
+                } block rounded-lg px-4 py-3 text-base font-medium transition-all duration-200`}
                 aria-current={activeSection === item.id ? "page" : undefined}
               >
                 {item.name}
-                {activeSection === item.id && (
-                  <span className="absolute left-0 top-0 w-1 h-full bg-white rounded-full transition-all duration-300"></span>
-                )}
               </a>
             ))}
-          </div>
-          <div className="border-t border-gray-700 pb-3 pt-4">
-            <div className="flex items-center px-5">
-              <div className="flex-shrink-0">
-                <Image
-                  className="h-10 w-10 rounded-full"
-                  src="/profile-placeholder.jpg"
-                  alt=""
-                  width={40}
-                  height={40}
-                />
-              </div>
-              <div className="ml-3">
-                <div className="text-base font-medium text-white">Admin RT</div>
-                <div className="text-sm font-medium text-gray-400">
-                  admin@rt54.com
-                </div>
-              </div>
-              <button
-                type="button"
-                className="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-              >
-                <span className="absolute -inset-1.5"></span>
-                <span className="sr-only">View notifications</span>
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
-                  />
-                </svg>
-              </button>
-            </div>
-            <div className="mt-3 space-y-1 px-2">
-              <Link
-                href="/admin"
-                className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-              >
-                Admin Dashboard
-              </Link>
-              <a
-                href="#"
-                className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-              >
-                Your Profile
-              </a>
-              <a
-                href="#"
-                className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-              >
-                Settings
-              </a>
-              <a
-                href="#"
-                className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-              >
-                Sign out
-              </a>
-            </div>
           </div>
         </div>
       </nav>
