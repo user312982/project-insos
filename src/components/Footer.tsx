@@ -239,13 +239,12 @@ export default function Footer() {
           <div className="grid gap-12 lg:grid-cols-4">
             <div className="space-y-6">
               <div className="flex items-center gap-4">
-                <Image
-                  src="/logo.png"
-                  alt="Logo RT 54"
-                  width={64}
-                  height={64}
-                  className="h-16 w-16 rounded-full border border-white/20 bg-white/80 object-contain p-2"
-                />
+                <div className="relative flex-shrink-0">
+                  <div className="absolute inset-0 bg-white rounded-lg blur-sm opacity-30"></div>
+                  <span className="relative text-3xl font-black text-white tracking-tight">
+                    RT<span className="text-white/80">54</span>
+                  </span>
+                </div>
                 <div>
                   <p className="text-lg font-semibold">
                     RT 54 Kel. Karang Joang
