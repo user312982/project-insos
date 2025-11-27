@@ -34,17 +34,6 @@ const linkSections: LinkSection[] = [
     links: [
       { label: "Sejarah RT 54", href: "#sejarah" },
       { label: "Struktur Kepengurusan", href: "#struktur" },
-      { label: "Berita & Publikasi", href: "#kegiatan" },
-      { label: "Hubungi Pengurus", href: "#kontak" },
-    ],
-  },
-  {
-    title: "Tentang Kami",
-    links: [
-      { label: "Profil RT", href: "#home" },
-      { label: "Visi & Misi", href: "#home" },
-      { label: "Layanan Masyarakat", href: "#administrasi" },
-      { label: "Kemitraan", href: "#kegiatan" },
     ],
   },
 ];
@@ -52,8 +41,7 @@ const linkSections: LinkSection[] = [
 const contactItems: ContactItem[] = [
   {
     label: "Telepon",
-    value: "+62 812-3456-7890",
-    href: "tel:+6281234567890",
+    value: "+62 813-5941-1298",
     icon: (
       <svg
         className="h-5 w-5"
@@ -72,8 +60,8 @@ const contactItems: ContactItem[] = [
   },
   {
     label: "Email",
-    value: "rt54@kelurahan.id",
-    href: "mailto:rt54@kelurahan.id",
+    value: "kardiyonokardiyono632@gmail.com",
+    href: "mailto:kardiyonokardiyono632@gmail.com",
     icon: (
       <svg
         className="h-5 w-5"
@@ -99,7 +87,7 @@ const contactItems: ContactItem[] = [
   {
     label: "Alamat",
     value:
-      "Jl. TB Simatupang No.22, RT 54/RW 08, Kel. Sukamaju, Kec. Pasar Minggu, Balikapapan 12540",
+      "Jl. Batu Ratna, Karang Joang, Kec. Balikpapan Utara, Kota Balikpapan, Kalimantan Timur 76127",
     icon: (
       <svg
         className="h-5 w-5"
@@ -124,7 +112,7 @@ const contactItems: ContactItem[] = [
   },
   {
     label: "Jam Layanan",
-    value: "Senin - Jumat 08.00 - 17.00 WITA",
+    value: "24 Jam",
     icon: (
       <svg
         className="h-5 w-5"
@@ -302,11 +290,6 @@ export default function Footer() {
               © {currentYear} RT 54 Kelurahan Karang Joang. Hak cipta
               dilindungi.
             </p>
-            <div className="flex flex-wrap gap-x-6 gap-y-2">
-              <span>Whistleblowing System</span>
-              <span>Transparansi Anggaran</span>
-              <span>Layanan Informasi Publik</span>
-            </div>
           </div>
         </div>
       </div>

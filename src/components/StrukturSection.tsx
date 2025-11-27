@@ -106,7 +106,7 @@ export default function StrukturSection() {
                 {/* Konten */}
                 <div className="p-3 text-center">
                   <h3 className="text-xs font-bold mb-1 text-emerald-800">SEKSI PPA</h3>
-                  <p className="text-[10px] font-semibold leading-tight text-gray-700">Farikhatul Mu'aidah</p>
+                  <p className="text-[10px] font-semibold leading-tight text-gray-700">Farikhatul Mu&apos;saidah</p>
                 </div>
               </div>
 
