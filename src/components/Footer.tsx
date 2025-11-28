@@ -238,7 +238,7 @@ export default function Footer() {
                     RT 54 Kel. Karang Joang
                   </p>
                   <p className="text-sm text-white/70">
-                    RW 08, Kec. Pasar Minggu
+                    Balikpapan, Kalimantan Timur
                   </p>
                 </div>
               </div>
