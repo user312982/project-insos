@@ -15,7 +15,7 @@ export default function HomeSection() {
             />
           </div>
           <h3 className="text-green-800 text-2xl font-bold text-center mb-1 tracking-wide">
-            KARDIONO
+            KARDIYONO
           </h3>
           <p className="text-gray-500 text-center text-base">Ketua RT 54</p>
         </div>
